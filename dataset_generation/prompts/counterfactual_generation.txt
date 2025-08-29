@@ -1,0 +1,87 @@
+You will be given a yes-no question, its decomposition into sub-questions, and a set of related facts. Based on this information:
+
+1. Select one fact from the provided set.
+2. Generate two counterfactual variations of the selected fact that do not alter the overall answer to the main question.
+3. If any other facts are dependent on the chosen fact, adjust them accordingly to ensure consistency with the counterfactuals.
+
+EXAMPLES: 
+
+question: Are more people today related to Genghis Khan than Julius Caesar?
+answer: yes
+facts: 
+   - Julius Caesar had three children.
+   - Genghis Khan had sixteen children.
+   - Modern geneticists have determined that  out of every 200 men today has DNA that can be traced to Genghis Khan.
+decomposition:
+  1. How many kids did Julius Caesar have?
+  2. How many kids did Genghis Khan have?
+  3. Is #2 greater than #1?
+
+**Chosen Fact:** Genghis Khan had sixteen children.
+
+**Counterafactual Variations:** The fact can be modified to "Genghis Khan had seven children" or "Genghis Khan had eleven children." Both variations are valid because the number of children Genghis Khan had remains greater than the number Julius Caesar had. Thus, the answer to the question still remains "yes".
+
+**Dependence on Other Facts:** Since no other facts depend on the number of children Genghis Khan had, there is no need to adjust any additional facts.
+
+**Final Modified Facts:**
+
+counterfactuals-1:
+   - Julius Caesar had three children.
+   - Genghis Khan had seven children.
+   - Modern geneticists have determined that  out of every 200 men today has DNA that can be traced to Genghis Khan.
+
+counterfactuals-2:
+   - Julius Caesar had three children.
+   - Genghis Khan had eleven children.
+   - Modern geneticists have determined that  out of every 200 men today has DNA that can be traced to Genghis Khan.
+
+
+
+question: Was the original James Bond actor born near the Washington Monument?
+answer: no
+facts: 
+   - The original James Bond actor was Sean Connery.
+   - Sean Connery was born in Scotland.
+   - The Washington Monument is located in Washington, D.C.
+   - Washington, D.C. and Scotland are nearly 3,500 miles apart.
+decomposition:
+  1. Who originally played James Bond?
+  2. Where was #1 born?
+  3. Where is the Washington Monument located?
+  4. What is the distance between #2 and #3?
+  5. Is #4 a short enough of a distance to be considered "close"?
+
+**Chosen Fact:** Sean Connery was born in Scotland.
+
+**Counterafactual Variations:** This fact can be changed to "Sean Connery was born in India" or "Sean Connery was born in Germany". Both counterfactuals are valid because the new locations are still far from the Washington Monument, which ensures the answer to the question remains "no".
+
+**Dependence on Other Facts:** Since the birthplace has changed, the stated distance between Washington, D.C., and the birthplace must also be updated. The fact "Washington, D.C., and Scotland are nearly 3,500 miles apart" should be replaced with either: "Washington, D.C., and India are nearly 8,000 miles apart." or "Washington, D.C., and Germany are nearly 4,100 miles apart."
+
+**Final Modified Facts:**
+
+counterfactuals-1:
+   - The original James Bond actor was Sean Connery.
+   - Sean Connery was born in India.
+   - The Washington Monument is located in Washington, D.C.
+   - Washington, D.C. and India are nearly 8,000 miles apart.
+
+counterfactuals-2:
+   - The original James Bond actor was Sean Connery.
+   - Sean Connery was born in Germany.
+   - The Washington Monument is located in Washington, D.C.
+   - Washington, D.C. and Germany are nearly 8,000 miles apart.
+
+
+
+Now provide the counterfactuals for the following input. Please follow the same format given in the examples.
+
+question: {question}
+answer: {answer}
+facts:
+{% for fact in facts %}
+   - {{fact}}
+{% endfor %}
+decomposition:
+{% for item in decomposition %}
+  {{ loop.index }}. {{item}}
+{% endfor %}

@@ -1,0 +1,50 @@
+You will be provided with a yes-or-no question, along with its decomposition into sub-questions and the relevant facts needed to answer the main question. Using the provided facts and decomposition, construct an explanation for the answer. Ensure the explanation focuses only on the relevant facts that contribute directly to addressing the sub-questions and the main question—avoid including unnecessary details. Below are some examples:
+
+question: Are more people today related to Genghis Khan than Julius Caesar?
+answer: yes
+facts: 
+   - Julius Caesar had three children.
+   - Genghis Khan had sixteen children.
+   - Modern geneticists have determined that  out of every 200 men today has DNA that can be traced to Genghis Khan.
+decomposition:
+  1. How many kids did Julius Caesar have?
+  2. How many kids did Genghis Khan have?
+  3. Is #2 greater than #1?
+explanation: While Julius Caesar had three children, Genghis Khan had sixteen. Genghis Khan's lineage continued from more children which eventually led more people being related to him than Julius Caesar.
+
+question: Is Edgar Allan Poe obscure in the world of horror fiction?
+answer: no
+facts:
+   - Edgar Allan Poe's writing has endured for over 150 years.
+   - Edgar Allan Poe's horror writing has been included in classroom curriculum for decades.
+decomposition:
+  1. How long have Edgar Allan Poe's writings remained in common use?
+  2. How long has his work in horror writing been used in classroom curricula?
+  3. Is #1 or #2 less than a decade?
+explanation: Edgar Allan Poe's works have endured for over 150 years and have been integral to classroom curricula for decades, making it impossible to consider his contributions to horror fiction obscure.
+
+question: Could a chipmunk fit 100 chocolate chips in his mouth?
+answer: no
+facts:
+   - A chipmunk can fit up to two tbsp of food in his mouth.
+   - There are about 20-25 chocolate chips in a tbsp.
+decomposition:
+  1. What is the carrying capacity of a chipmunks mouth in tbsp.?
+  2. How many chocolate chips are in a tbsp?
+  3. Is #1 greater than #3?
+explanation: A chipmunk can fit up to two tablespoons of food in its mouth. Since there are 20–25 chocolate chips in a tablespoon, it can hold 40–50 chocolate chips, which is less than 100.
+
+Now provide the explanation for the following input.
+
+question: {question}
+answer: {answer}
+facts:
+{% for fact in facts %}
+   - {{fact}}
+{% endfor %}
+decomposition:
+{% for item in decomposition %}
+  {{ loop.index }}. {{item}}
+{% endfor %}
+
+Give the explanation in the format of "explanation: <EXPLANATION>". Do not output anything else.
